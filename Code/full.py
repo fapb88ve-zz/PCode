@@ -102,45 +102,46 @@ def dl_files(x):
         os.chdir('.\\Clients')
     except Exception:
         os.mkdir('Clients')
-    for i in df.index:
-        c_dir = 'Pancitas Ultrasound {}'.format(i.lower().title())
-        try:
-            os.mkdir(c_dir)
-        except FileExistsError:
-            shutil.rmtree('.\\' + c_dir)
-        finally:
-            os.mkdir(c_dir)
-            os.chdir('.\\' + c_dir)
-            dl_df = []
-            for k in files:
-                if i.upper() in k:
-                    dl_df.append(k)
-            for j in dl_df:
-                try:
-                    f, metadata = client.get_file_and_metadata('/' + j)
-                except Exception:
-                    while have_internet() != True:
-                        print('No hay conneccion de Internet. Se intentara otra vez en 3 minutos.')
-                        time.sleep(180)
+    finally:
+        for i in df.index:
+            c_dir = 'Pancitas Ultrasound {}'.format(i.lower().title())
+            try:
+                os.mkdir(c_dir)
+            except FileExistsError:
+                shutil.rmtree(c_dir)
+                os.mkdir(c_dir)
+            finally:
+                os.chdir('.\\' + c_dir)
+                dl_df = []
+                for k in files:
+                    if i.upper() in k:
+                        dl_df.append(k)
+                for j in dl_df:
+                    try:
+                        f, metadata = client.get_file_and_metadata('/' + j)
+                    except Exception:
+                        while have_internet() != True:
+                            print('No hay conneccion de Internet. Se intentara otra vez en 3 minutos.')
+                            time.sleep(180)
 
-                finally:
-                    out = open(j, 'wb')
-                    out.write(f.read())
-                    out.close()
-            watermark(dl_df)
-            for l in os.listdir(os.getcwd()):
-                if 'Pancitas' in l:
-                    pass
-                else:
-                    os.remove(l)
-            send_mail(i)
-            os.chdir('..\\')
-            shutil.rmtree(c_dir)
+                    finally:
+                        out = open(j, 'wb')
+                        out.write(f.read())
+                        out.close()
+                watermark(dl_df)
+                for l in os.listdir(os.getcwd()):
+                    if 'Pancitas' in l:
+                        pass
+                    else:
+                        os.remove(l)
+                send_mail(i)
+                os.chdir('..\\')
+                shutil.rmtree(c_dir)
 
 
 def send_mail(x):
     name = x
-    email = clients[clients.Nombre == x]['Email'].values[0]
+    email = customers[customers.Nombre == x]['Email'].values[0]
     files = os.listdir(os.getcwd())
     size = [round(os.path.getsize(i) / 10**6, 2) for i in files]
     tot_size = sum(size)
@@ -149,7 +150,7 @@ def send_mail(x):
         s = smtplib.SMTP('smtp.gmail.com', 587)
         s.ehlo()
         s.starttls()
-        s.login('fapb88ve@gmail.com', '')
+        s.login('p.imagery.serv@gmail.com', 'rabbitrun88ve')
     except Exception:
         while have_internet() != True:
             print('No hay conneccion de Internet. Se intentara otra vez en 3 minutos.')
@@ -195,11 +196,10 @@ def send_mail(x):
                     txt_mail = txt.format(j)
                 msg = MIMEMultipart()
                 msg['Subject'] = 'Ultrasound Imagery #{}'.format(j)
-                msg['From'] = 'fapb88ve@gmail.com'
+                msg['From'] = 'p.imagery.serv@gmail.com'
                 msg['To'] = email
                 msg.attach(MIMEText(txt_mail))
                 for l in chunk.file:
-                    print('Loading file {}'.format(l))
                     if 'mp4' in l:
                         part = MIMEBase('application', "octet-stream")
                         fo = open(l, "rb")
@@ -212,7 +212,7 @@ def send_mail(x):
                         image = MIMEImage(img_data, name=os.path.basename(l))
                         msg.attach(image)
                 try:
-                    s.sendmail('fapb88ve@gmail.com', email, msg.as_string())
+                    s.sendmail('p.imagery.serv@gmail.com', email, msg.as_string())
                 except Exception:
                     if have_internet() == False:
                         while have_internet() != True:
@@ -221,7 +221,7 @@ def send_mail(x):
                     else:
                         email = 'vcalzadillag@gmail.com'
                         msg['To'] = email
-                        s.sendmail('fapb88ve@gmail.com', email, msg.as_string())
+                        s.sendmail('p.imagery.serv@gmail.com', email, msg.as_string())
 
         else:
             txt = '''
@@ -240,12 +240,11 @@ def send_mail(x):
             txt_mail = txt.format(name)
             msg = MIMEMultipart()
             msg['Subject'] = 'Ultrasound Imagery'
-            msg['From'] = 'fapb88ve@gmail.com'
+            msg['From'] = 'p.imagery.serv@gmail.com'
             msg['To'] = email
             msg.attach(MIMEText(txt_mail))
             files = os.listdir(os.getcwd())
             for l in files:
-                print('Loading file {}'.format(l))
                 if 'mp4' in l:
                     part = MIMEBase('application', "octet-stream")
                     fo = open(l, "rb")
@@ -260,7 +259,7 @@ def send_mail(x):
                     msg.attach(image)
 
             try:
-                s.sendmail('fapb88ve@gmail.com', email, msg.as_string())
+                s.sendmail('p.imagery.serv@gmail.com', email, msg.as_string())
             except Exception:
                 if have_internet() == False:
                     while have_internet() != True:
@@ -269,12 +268,12 @@ def send_mail(x):
                 else:
                     email = 'vcalzadillag@gmail.com'
                     msg['To'] = email
-                    s.sendmail('fapb88ve@gmail.com', email, msg.as_string())
+                    s.sendmail('p.imagery.serv@gmail.com', email, msg.as_string())
 
         s.quit()
 
 
-def clients():
+def customers():
     scope = ['https://spreadsheets.google.com/feeds']
     creds = ServiceAccountCredentials.from_json_keyfile_name('client_id.json', scope)
     client = gspread.authorize(creds)
@@ -282,6 +281,19 @@ def clients():
     sheet = client.open('Registro de Clientes').sheet1
     c_list = sheet.get_all_records()
     return pd.DataFrame(c_list)
+
+
+def updat(a, b):
+    c = []
+    for i in range(len(b)):
+        for j in range(len(a)):
+            if a.Nombre.iloc[i] == b.Nombre.iloc[j]:
+                c.append(False)
+                break             # fix #1
+        else:                     # fix #2
+            c.append(True)
+
+    return b[c]
 
 
 def full():
@@ -300,6 +312,52 @@ def full():
     send_f = pd.merge(d_files, clients, left_on='c_name', right_on='Nombre',
                       how='inner')
     dl_files(send_f)
+
+
+def full():
+    global logo, plogo, plogow, plogoh, client, metadata, logo_path
+    logo_path = os.path.abspath('.\\Logo\\pancita4.png')
+    client = dropbox.client.DropboxClient('IS-424yqxy8AAAAAAAAVLOUS9urGIH4kCxP_5Q6hxdz-WrhGMYKa-9MjMZrpwMYZ')
+    inst = 1
+    while datetime.datetime.now().time() <= datetime.time(16, 00):
+        if inst == 1:
+            metadata = client.metadata('/')
+            d_files = files()
+            global customers
+            customers = customers()
+            print('El programa revisara dentro de 15 minutos.')
+            send_f = pd.merge(d_files, customers, left_on='c_name', right_on='Nombre',
+                              how='inner')
+            dl_files(send_f)
+        else:
+            metadata = client.metadata('/')
+            d_files = files()
+            customers = updat(customers, customers())
+            print('El programa revisara dentro de 15 minutos.')
+            send_f = pd.merge(d_files, customers, left_on='c_name', right_on='Nombre',
+                              how='inner')
+            dl_files(send_f)
+        time.sleep(15 * 60)
+        inst += 1
+    print('Le gustaria mantener funcionando el programa por un periodo adicional? (Indique su respuesta con un Si o un No)')
+    resp1 = input()
+    if 's' in resp1:
+        print('Hasta que hora desea mantener el programa funcionando? (Favor utilizar format de hora de 24 horas, i.e.: 17:40')
+        resp2 = input()
+        hour = res2.split(':')[0]
+        minutes = res2.split(':')[1]
+        t_close = datetime.time(hour, minutes)
+        while datetime.datetime.now().time() <= datetime.time(hour, minutes):
+            metadata = client.metadata('/')
+            d_files = files()
+            customers = updat(customers, customers())
+            send_f = pd.merge(d_files, customers, left_on='c_name', right_on='Nombre',
+                              how='inner')
+            dl_files(send_f)
+            time.sleep(15 * 60)
+
+    else:
+        print('Hasta luego.')
 
 
 if os.getcwd() != 'C:\\Users\\Frank Pinto\\desktop\\pds\\Pancitas\\Code':
