@@ -1,0 +1,12 @@
+{
+  "type": "service_account",
+  "project_id": "pancita-code",
+  "private_key_id": "2b79acfccb4cddc7f83b887a1e8e9ea4c0dce8b8",
+  "private_key": "-----BEGIN PRIVATE KEY-----\nMIIEvgIBADANBgkqhkiG9w0BAQEFAASCBKgwggSkAgEAAoIBAQDr2f6bwY6D4yXN\nhzjpAxEfawvEG9op4aksi3/5j8yV2oJk9mgao738UXkvFhUeXN7PAEQP0M3BlThX\nroqUv1F8zPWSh8DXBiCFLd48K8W0l9XR2DCTsOHgcTjvWZjZE+jiFaHQipwPEvfN\nr8zv3Ss4V0Sga6vxubEij6hfSPQppZIKJb99rxcXW78LpRmWsGSObnw+6Cw6dVdy\n67c1Ng9LBq3/ednqTn6NpOlNzLVxZ8Yn6vck0BGsojDTIbcJYJNIi3e1IAFkmHOa\noTrnGGc9BQAeiRC42CLPYWDVw/4qLZ9KFbyxFrBioQnsTPGmojy7LuNbtEyxxm6V\nK6hO3UD5AgMBAAECggEACudhD3vyW1kKSArN04jgbhzdKdZwQGpTZO8KHimujOlD\nlyFaGv6Fa7iPOWFJpOJFLB10ssGZUaEN6QKDxlQO6LiAoYag9dcRO2GtYSRUew7R\ni0oupaOSaHWlXMN3G3TIvZ2/90vkxgfbr+jUceywDZ8aWefc4xKcIRgkRy8F7W5z\nHYri0/EgL+7xAfh5OqiTLVuIs3AYf1lzV089uqxXjB2SPdCq1JccnkwZeJpnEvh5\n7M+P6mZl+/0lE2azb3BSMnNosf7LVbVO8dtPLuYhBlDDoxFQqWWMhbfzHNa6SaI7\nbZqZd1N0UnuQlR0POBbzxh4lTTWEUpzUJkF0XiwkJQKBgQD81YWPgoZhOoV89kcs\n7PUr4iNtejeOnzMzNKut+Yu0F1ObEbCJud6RshZuhgF8sJtPD4pU5y8uBfbuY5L+\nMBov2wOhnp8L+TQgy/xJuJQLu16AgYk8DbmI9hhMrDI1XBL+YozZakc4ZPp7c/Oi\nG/Vqg1iaupEPCdDFiPpMbH2q1wKBgQDuzgi6fv0QdfPypAOAaw4fGLhigt6Q1FUE\ny4bzCa2RLBNro/edy+DdCFUvjUB57ib+Hds+pa0/ttCSNyLSRzzhiWPImc8ms4pO\n6oFK7oMDFNMHkKOzlNyXfRMfJ57x7ARdTmfRSUR0GaLhXV633eToK61Tgh3OpsOR\nTGIuDj9IrwKBgQDxFD/oGRM9PmnuP36ajc8w6s3RI8o5yf8uAjj5CIt3Sw7DO9jT\nWlGpJuBQvqJIXLWaaz0Bu/a2saVEpdmRWhh+LR2HTBJnflWAOED1onQ3w49WhS1v\n/747pDyDT2YIjyTlPt8CqF4EnfRhJqzWlEYsK9Weo+qRJlDVKclQedpRvQKBgQDk\n2KUcs50oLSD+IZcJdY4u1q28GdXXzOM8mR5VwayHNknWGWet3Dc9GkMoMqDbOBI9\n67azLmn8aOEvfY7tHD+HkvYAwwT0/ZFJVwlYGYGLbmVdFosKCVnsAnxUms+C3r6/\n++cZdLEY4Yhpl+SxJv+6TkDnigWuh7lagGyF3jlfGQKBgF3Srwg8nZzkMtLRLjnY\nq/f/tTC/VPrqvkHIR6iypFj5lOdC9JjPwXbcCRq2yztVzxMCJyUpWvbb7h84zotL\nc/wBhPspeD1olSaxHlsSVtybpIf4GKIFG3LCx4QWvBQKu7T1P6gv1U5yLScqODTi\n1inkH71d0ctsRGnF9Jdtt2/c\n-----END PRIVATE KEY-----\n",
+  "client_email": "emailsender@pancita-code.iam.gserviceaccount.com",
+  "client_id": "112444710300048149806",
+  "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+  "token_uri": "https://accounts.google.com/o/oauth2/token",
+  "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+  "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/emailsender%40pancita-code.iam.gserviceaccount.com"
+}
