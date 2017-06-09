@@ -293,7 +293,7 @@ def updat(a, b):
         else:                     # fix #2
             c.append(True)
 
-    return b[c]
+    return c
 
 
 def full():
@@ -319,7 +319,7 @@ def full():
     logo_path = os.path.abspath('.\\Logo\\pancita4.png')
     client = dropbox.client.DropboxClient('IS-424yqxy8AAAAAAAAVLOUS9urGIH4kCxP_5Q6hxdz-WrhGMYKa-9MjMZrpwMYZ')
     inst = 1
-    while datetime.datetime.now().time() <= datetime.time(16, 00):
+    while datetime.datetime.now().time() <= datetime.time(19, 30):
         if inst == 1:
             metadata = client.metadata('/')
             d_files = files()
@@ -332,7 +332,9 @@ def full():
         else:
             metadata = client.metadata('/')
             d_files = files()
-            customers = updat(customers, customers())
+            new_c = customers()
+            prev_c = updat(customers, new_c)
+            customers = customers()[prev_c]
             print('El programa revisara dentro de 15 minutos.')
             send_f = pd.merge(d_files, customers, left_on='c_name', right_on='Nombre',
                               how='inner')
@@ -341,7 +343,7 @@ def full():
         inst += 1
     print('Le gustaria mantener funcionando el programa por un periodo adicional? (Indique su respuesta con un Si o un No)')
     resp1 = input()
-    if 's' in resp1:
+    if 's' or 'S' in resp1:
         print('Hasta que hora desea mantener el programa funcionando? (Favor utilizar format de hora de 24 horas, i.e.: 17:40')
         resp2 = input()
         hour = res2.split(':')[0]
